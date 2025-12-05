@@ -90,7 +90,8 @@ const Bookmarkcard: React.FC<AnimecardProps> = ({ anime }) => {
         </Link>
 
         {/* Hover overlay */}
-        <div
+        <Link
+          href={`/anime/${anime.mal_id}`}
           className="
             absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100
             transition-opacity duration-300 flex items-center justify-center 
@@ -106,7 +107,7 @@ const Bookmarkcard: React.FC<AnimecardProps> = ({ anime }) => {
           >
             <FaTrash className="text-lg" />
           </button>
-        </div>
+        </Link>
 
         {anime.score != null && (
           <div

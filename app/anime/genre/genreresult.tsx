@@ -32,7 +32,7 @@ const Genreresult = ({ genre }: { genre: number }) => {
   console.log();
 
   return (
-    <div className="text-white px-[30px] ml-[70px] font-mono mt-[100px]">
+    <div className="text-white px-0 sm:px-0 md:px-10 lg:px-20 xl:px-[30px] ml-[70px] font-mono mt-[100px]">
       {/* Title */}
       {!isLoading && (
         <h1 className="text-3xl font-semibold font-mono mb-6">
@@ -59,7 +59,19 @@ const Genreresult = ({ genre }: { genre: number }) => {
       )}
 
       {/* Anime Grid */}
-      <div className="mt-10 flex flex-wrap gap-4">
+      <div
+        className="
+          flex 
+          flex-wrap 
+          gap-4 
+          mt-8 
+          mb-12 
+         
+          overflow-x-hidden
+          overflow-y-hidden
+
+        "
+      >
         {data?.data?.map((anime: any) => (
           <Animecard key={anime.mal_id} anime={anime} />
         ))}

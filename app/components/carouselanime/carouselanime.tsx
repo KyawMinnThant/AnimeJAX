@@ -198,15 +198,21 @@ export default function FadeCarousel({
 
                 {/* Buttons */}
                 <div className="flex gap-4 pt-2">
-                  <button className="flex items-center gap-2 bg-purple-500 hover:bg-purple-400 px-5 py-2 rounded-md font-semibold">
+                  <Link
+                    href={`/anime/${slide.id}`}
+                    className="flex items-center gap-2 bg-purple-500 hover:bg-purple-400 px-5 py-2 rounded-md font-semibold"
+                  >
                     <FaPlay />
                     Watch
-                  </button>
+                  </Link>
 
-                  <button className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-5 py-2 rounded-md font-semibold">
+                  <Link
+                    href={`/anime/${slide.id}`}
+                    className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-5 py-2 rounded-md font-semibold"
+                  >
                     <FaInfoCircle />
                     Detail
-                  </button>
+                  </Link>
                 </div>
               </div>
 

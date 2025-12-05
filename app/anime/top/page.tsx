@@ -31,10 +31,10 @@ const TopAnime = () => {
     text-purple-400 border border-purple-500 px-4 py-1.5 
     rounded-md hover:bg-purple-600 hover:text-white transition font-semibold
 
-    mt-10         /* default: small screens */
+    mt-[80px] ml-6         /* default: small screens */
     sm:mt-16 sm:ml-10  /* ≥640px */
     md:mt-20 md:ml-[50px]  /* ≥768px */
-    lg:mt-24 lg:ml-[70px] /* ≥1024px */
+    lg:mt-24 lg:ml-[70px]  /* ≥1024px */
   "
       >
         ← Back to Anime
@@ -54,6 +54,8 @@ const TopAnime = () => {
           mb-12 
           justify-center
           overflow-x-hidden
+          overflow-y-hidden
+
         "
       >
         {topanimeList.map((anime: any) => (

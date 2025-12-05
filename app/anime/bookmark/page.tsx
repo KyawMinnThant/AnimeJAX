@@ -5,6 +5,7 @@ import { db } from "@/firebaseConfig";
 import { collection, where, query, getDocs } from "firebase/firestore";
 import Animecard from "@/app/components/animecard";
 import Bookmarkcard from "@/app/components/bookmarkcard";
+import Link from "next/link";
 
 const Bookmark = async () => {
   const userCookies = await cookies();
@@ -22,14 +23,35 @@ const Bookmark = async () => {
   const hasBookmarks = bookmarks.length > 0;
 
   return (
-    <div className="mt-20 w-full px-4 sm:px-6 md:px-10 lg:px-20 font-mono">
+    <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 font-mono">
+      <Link
+        href="/anime"
+        className="
+    inline-block
+    text-purple-400 border border-purple-500 px-4 py-1.5 
+    rounded-md hover:bg-purple-600 hover:text-white transition font-semibold
+
+    mt-[80px] ml-6         /* default: small screens */
+    sm:mt-16 sm:ml-10  /* ≥640px */
+    md:mt-20 md:ml-[50px]  /* ≥768px */
+    lg:mt-24 lg:ml-[70px]  /* ≥1024px */
+  "
+      >
+        ← Back to Anime
+      </Link>
       {hasBookmarks && bookmarks ? (
         <div
           className="
-            flex flex-wrap justify-center 
-            gap-4 sm:gap-5 md:gap-6 
-            w-full
-          "
+          flex 
+          flex-wrap 
+          gap-4 
+          mt-8 
+          mb-12 
+          
+          overflow-x-hidden
+          overflow-y-hidden
+
+        "
         >
           {bookmarks.map((b: any) => {
             const anime = b.anime;

@@ -12,7 +12,7 @@ interface RecommendationProps {
 
 const Recommendation: React.FC<RecommendationProps> = ({ id }) => {
   const { data, error, isLoading } = useSWR(
-    id ? `http://localhost:3000/api/anime/recommendation/${id}` : null,
+    id ? `/api/anime/recommendation/${id}` : null,
     fetcher
   );
 

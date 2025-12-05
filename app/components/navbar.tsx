@@ -183,8 +183,6 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* BOOKMARK — only show when logged in */}
-
             <Link
               href="/anime/bookmark"
               className={`flex items-center gap-1 text-md ${
@@ -349,18 +347,17 @@ const Navbar = () => {
             </details>
 
             {/* MOBILE BOOKMARK */}
-            {isLoggedIn && (
-              <Link
-                href="/anime/bookmark"
-                className={`block py-2 ${
-                  isActive("/anime/bookmark")
-                    ? "text-purple-400"
-                    : "text-gray-300"
-                }`}
-              >
-                Bookmark
-              </Link>
-            )}
+
+            <Link
+              href="/anime/bookmark"
+              className={`block py-2 ${
+                isActive("/anime/bookmark")
+                  ? "text-purple-400"
+                  : "text-gray-300"
+              }`}
+            >
+              Bookmark
+            </Link>
 
             {/* MOBILE AUTH */}
             {isLoggedIn ? (

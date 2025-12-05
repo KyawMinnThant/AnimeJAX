@@ -32,6 +32,11 @@ const Episodewatch = ({ id }: { id: number }) => {
 
   return (
     <div className="">
+      {isLoading && (
+        <div className=" text-white font-mono mt-5 ml-10">
+          Loading Episodes...
+        </div>
+      )}
       <div className=" flex">
         <Episodes episodes={episode} />
       </div>

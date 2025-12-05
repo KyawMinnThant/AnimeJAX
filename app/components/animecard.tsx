@@ -64,7 +64,7 @@ const Animecard: React.FC<AnimecardProps> = ({ anime }) => {
         w-[40%]
 
         /* Tablet: 48% */
-        sm:w-[48%]
+        sm:w-[50%]
 
         /* Medium screens: 30% */
         md:w-[31%]

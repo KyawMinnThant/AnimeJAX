@@ -112,7 +112,19 @@ const Anime = () => {
           {LatestAnimeList.length === 0 ? (
             <p className="text-gray-400">Latest anime will appear soon.</p>
           ) : (
-            <div className="flex flex-wrap gap-5">
+            <div
+              className="
+          flex 
+          flex-wrap 
+          gap-4 
+          mt-8 
+          mb-12 
+          justify-center
+          overflow-x-hidden
+          overflow-y-hidden
+
+        "
+            >
               {LatestAnimeList.map((anime: any, index: number) => (
                 <Animecard key={index} anime={anime} />
               ))}
