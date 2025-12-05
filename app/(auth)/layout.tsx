@@ -22,14 +22,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-black text-white font-mono`}
-      >
-        {/* Render all children inside the body */}
-        {children}
-      </body>
-    </html>
-  );
+  return <>{children}</>;
 }

@@ -125,7 +125,7 @@ export default function FadeCarousel({
             />
 
             {/* Content */}
-            <div className="absolute inset-0 flex items-center justify-between px-[75px] text-white">
+            <div className="absolute inset-0 flex items-center justify-between lg:px-[75px] md:px-[75px] px-[30px]  text-white">
               {/* LEFT info */}
               <div className="max-w-lg z-30 space-y-4">
                 <h3 className="text-3xl md:text-5xl font-extrabold drop-shadow">

@@ -25,19 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-black text-white font-mono`}
-      >
-        {/* Navbar at the top */}
-        <Navbar />
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-black text-white font-mono`}
+    >
+      {/* Navbar at the top */}
+      <Navbar />
 
-        {/* Main content grows to fill available space */}
-        <main className="flex-grow">{children}</main>
+      {/* Main content grows to fill available space */}
+      {children}
 
-        {/* Footer at the bottom */}
-        <Footer />
-      </body>
-    </html>
+      {/* Footer at the bottom */}
+      <Footer />
+    </div>
   );
 }

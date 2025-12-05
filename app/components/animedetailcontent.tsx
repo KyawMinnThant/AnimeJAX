@@ -56,18 +56,27 @@ const AnimeDetailContent = ({
   };
 
   return (
-    <main className="pt-28 px-4 sm:px-6 md:px-10 lg:px-20 font-mono text-white">
+    <main className=" px-4 sm:px-6 md:px-10 lg:px-20 font-mono text-white">
       {/* Back Button */}
       <Link
         href="/anime"
-        className="inline-block text-purple-400 border border-purple-500 px-4 py-1.5 rounded-md 
-          hover:bg-purple-600 hover:text-white transition font-semibold"
+        className="
+    inline-block
+    text-purple-400 border border-purple-500 px-2 py-1.5 
+    rounded-md hover:bg-purple-600 hover:text-white transition font-semibold
+
+    mt-[70px]   ml-2         /* default: small screens */
+    sm:mt-[50px] sm:ml-10  /* ≥640px */
+    md:mt-20 md:ml-[50px]  /* ≥768px */
+    lg:mt-24 lg:ml-[0px]  /* ≥1024px */
+     text-sm font-mono
+  "
       >
         ← Back to Anime
       </Link>
 
       {/* MAIN CONTAINER */}
-      <div className="w-full mx-auto mt-16 max-w-[1400px]">
+      <div className="w-full mx-auto mt-10 max-w-[1400px]">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row gap-10">
           <img

@@ -29,10 +29,11 @@ const Genrebox = () => {
     <div
       className="
            
-        max-w-screen-xl     /* full width container but capped on huge monitors */
+        max-w-[100vw]
+            /* full width container but capped on huge monitors */
         mx-auto             
         px-3               
-        sm:px-4
+        sm:px-2
         md:px-12
         py-6
         font-mono
@@ -41,19 +42,21 @@ const Genrebox = () => {
         ml-0
         sm:ml-0
         lg:ml-[90px]         /* aligns with carousel layout spacing */
-        xl:ml-[50px]
+        xl:ml-[30px]
       "
     >
       <h2 className="text-xl font-bold text-white mb-4">Anime Genres</h2>
 
       <div
         className="
+        w-[96%]
+
           grid 
           grid-cols-2 
           sm:grid-cols-3 
           md:grid-cols-4 
           lg:grid-cols-5 
-          xl:grid-cols-6
+          xl:grid-cols-8
           gap-3
         "
       >

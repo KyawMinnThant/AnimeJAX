@@ -77,9 +77,9 @@ const Anime = () => {
       </div>
 
       {/* PAGE CONTENT: LEFT + RIGHT (desktop) */}
-      <div className="flex flex-col lg:flex-row w-full px-10 md:px-10 lg:px-14 mt-10 gap-8">
+      <div className="flex flex-col lg:flex-row w-full px-2 md:px-10 lg:px-14 mt-10 gap-8">
         {/* LEFT CONTENT */}
-        <section className="w-full ml-5 lg:w-[80%]">
+        <section className="w-full ml-5 lg:w-[80%] md:w-[80%] ">
           {/* TOP ANIME TITLE */}
           <Textheader>
             <h2 className="text-2xl font-mono font-bold mt-3 mb-5 text-white border-l-5 px-2 border-purple-500">
@@ -119,7 +119,7 @@ const Anime = () => {
           gap-4 
           mt-8 
           mb-12 
-          justify-center
+          
           overflow-x-hidden
           overflow-y-hidden
 
@@ -131,6 +131,11 @@ const Anime = () => {
             </div>
           )}
         </section>
+
+        {/* PAGINATION (mobile only, ABOVE genre box) */}
+        <div className="flex justify-center mb-6 lg:hidden">
+          <Pagination />
+        </div>
 
         {/* RIGHT SIDEBAR — Desktop only */}
         <aside className="hidden lg:block w-[20%]">
@@ -144,7 +149,8 @@ const Anime = () => {
       </div>
 
       {/* PAGINATION */}
-      <div className="flex justify-center mb-10">
+      {/* PAGINATION (desktop only) */}
+      <div className="hidden lg:flex justify-center mt-10 mb-10">
         <Pagination />
       </div>
 
