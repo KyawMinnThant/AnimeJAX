@@ -13,7 +13,7 @@ const Watchanime: React.FC<Episodes> = async ({ params }) => {
   console.log(id);
 
   const fetchAnime = async () => {
-    const res = await fetch(`http://localhost:3000/api/anime/${id}`, {
+    const res = await fetch(`/api/anime/${id}`, {
       cache: "no-store",
     });
 

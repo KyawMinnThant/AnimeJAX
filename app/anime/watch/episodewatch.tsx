@@ -19,7 +19,7 @@ const Episodewatch = ({ id }: { id: number }) => {
   };
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, isLoading } = useSWR(
-    `http://localhost:3000/api/anime/episodes/${id}?page=${page}`,
+    `/api/anime/episodes/${id}?page=${page}`,
     fetcher
   );
 

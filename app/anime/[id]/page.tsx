@@ -11,7 +11,7 @@ const DetailAnime = async ({ params }: DetailAnimeProps) => {
   const { id } = await params;
 
   // Fetch anime data on the server
-  const res = await fetch(`http://localhost:3000/api/anime/${id}`, {
+  const res = await fetch(`/api/anime/${id}`, {
     cache: "no-store",
   });
 

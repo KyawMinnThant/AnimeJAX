@@ -12,10 +12,7 @@ const TopAnime = () => {
   const { setLastPage, page } = usePaginationStore();
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data, isLoading } = useSWR(
-    `http://localhost:3000/api/anime?page=${page}`,
-    fetcher
-  );
+  const { data, isLoading } = useSWR(`/api/anime?page=${page}`, fetcher);
 
   const topanimeList = data?.data || [];
 

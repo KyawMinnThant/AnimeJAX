@@ -14,7 +14,7 @@ const Upcoming = () => {
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, isLoading } = useSWR(
-    `http://localhost:3000/api/anime/upcoming?page=${page}`,
+    `/api/anime/upcoming?page=${page}`,
     fetcher
   );
 

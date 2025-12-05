@@ -26,13 +26,10 @@ type Slide = {
 const Anime = () => {
   const { setLastPage, page } = usePaginationStore();
 
-  const { data, isLoading: isAnimeLoading } = useSWR(
-    "http://localhost:3000/api/anime",
-    fetcher
-  );
+  const { data, isLoading: isAnimeLoading } = useSWR("/api/anime", fetcher);
 
   const { data: LatestAnime, isLoading: isLatestLoading } = useSWR(
-    `http://localhost:3000/api/anime/latest?page=${page}`,
+    `/api/anime/latest?page=${page}`,
     fetcher
   );
 
