@@ -61,7 +61,7 @@ const Animecard: React.FC<AnimecardProps> = ({ anime }) => {
         font-mono cursor-pointer group relative
 
         /* Mobile: 100% */
-        w-[30%]
+        w-[40%]
 
         /* Tablet: 48% */
         sm:w-[48%]

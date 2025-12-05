@@ -88,7 +88,7 @@ const Anime = () => {
           </Textheader>
 
           {/* Top Anime Grid */}
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-2">
             {animeList.map((anime: any, index: number) => (
               <Animecard key={index} anime={anime} />
             ))}

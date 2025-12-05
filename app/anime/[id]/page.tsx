@@ -11,9 +11,7 @@ const DetailAnime = async ({ params }: DetailAnimeProps) => {
   const { id } = await params;
 
   // Fetch anime data on the server
-  const res = await fetch(`/api/anime/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
 
   const animeData = res.ok ? await res.json() : null;
 

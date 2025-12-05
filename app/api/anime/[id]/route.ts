@@ -7,9 +7,7 @@ export async function GET(
 
   try {
     // fetch detail from Jikan API
-    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
 
     if (!res.ok) {
       return new Response(JSON.stringify({ error: "Anime not found" }), {
