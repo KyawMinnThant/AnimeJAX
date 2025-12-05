@@ -115,8 +115,10 @@ const Navbar = () => {
   const handleLogout = async () => {
     await signOut(auth);
     await clearAuthCookie();
+
     toast.success("Logged out!");
     setShowLogoutModal(false);
+    await fetch("/api/auth/logout", { method: "POST" });
   };
 
   const isLoggedIn = hasAuthCookie && user;
