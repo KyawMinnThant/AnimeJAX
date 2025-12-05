@@ -46,7 +46,7 @@ const LoginForm = () => {
         // Pass both token and uid
         await setAuthCookie(token, uid);
 
-        router.push("/");
+        router.push("/anime");
       }
     });
 
@@ -90,7 +90,7 @@ const LoginForm = () => {
       );
 
       const token = await res.user.getIdToken();
-      await setAuthCookie(token, res.user.uid );
+      await setAuthCookie(token, res.user.uid);
 
       toast.success("Logged in successfully!");
       router.push("/anime");
