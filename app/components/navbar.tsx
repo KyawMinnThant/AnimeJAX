@@ -61,13 +61,15 @@ const Navbar = () => {
     checkCookie();
   }, []);
 
-  // Search API
+  // Search API via SWR
   const { data: searchRes } = useSWR(
-    searchTerm.length > 1 ? `/api/anime/search?q=${searchTerm}` : null,
+    searchTerm.length > 1
+      ? `/api/anime/search?q=${encodeURIComponent(searchTerm)}`
+      : null,
     fetcher
   );
 
-  // Close search result dropdown when clicking outside
+  // Close search dropdown when clicking outside (desktop)
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (
@@ -88,7 +90,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ⭐ FIXED ACTIVE ROUTE DETECTION ⭐
+  // Hide mobile search bar when window resizes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && mobileSearch) {
+        setMobileSearch(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    // Also run once on mount to check initial size
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mobileSearch]);
+
+  // Active route detection
   const isActive = (href: string) => {
     if (href === "/anime") {
       return pathname === "/anime";
@@ -96,7 +111,7 @@ const Navbar = () => {
     return pathname === href || pathname.startsWith(href + "/anime");
   };
 
-  // Logout
+  // Logout handler
   const handleLogout = async () => {
     await signOut(auth);
     await clearAuthCookie();
@@ -106,9 +121,27 @@ const Navbar = () => {
 
   const isLoggedIn = hasAuthCookie && user;
 
+  // Handle Enter key for search
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchTerm.trim() !== "") {
+      window.location.href = `/anime/search?query=${encodeURIComponent(
+        searchTerm.trim()
+      )}`;
+      setSearchOpen(false);
+      setMobileSearch(false);
+    }
+  };
+
+  // Handle clicking a search result
+  const handleSelectResult = (title: string) => {
+    setSearchTerm(title);
+    setSearchOpen(false);
+    setMobileSearch(false);
+  };
+
   return (
     <>
-      {/* NAVBAR UI */}
+      {/* NAVBAR */}
       <nav
         className={`w-full font-mono text-white px-4 py-3 fixed top-0 left-0 z-50 transition-all duration-300 ${
           scrolled
@@ -128,7 +161,6 @@ const Navbar = () => {
 
           {/* DESKTOP MENU */}
           <div className="hidden lg:flex items-center gap-6">
-            {/* HOME */}
             <Link
               href="/anime"
               className={`text-md ${
@@ -152,6 +184,8 @@ const Navbar = () => {
                     ? "text-purple-400"
                     : "text-gray-300 hover:text-purple-400"
                 }`}
+                aria-haspopup="true"
+                aria-expanded={isDropdownOpen}
               >
                 Anime <FaChevronDown size={12} />
               </button>
@@ -210,15 +244,25 @@ const Navbar = () => {
                   setSearchTerm(e.target.value);
                   setSearchOpen(e.target.value.length > 1);
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    window.location.href = `/anime/search?query=${searchTerm}`;
-                }}
+                onKeyDown={handleKeyDown}
                 className="pr-9 pl-2 py-1.5 rounded-md bg-gray-900/70 border border-gray-700 text-white text-sm w-full"
+                aria-label="Search anime"
+                autoComplete="off"
               />
               <Link
-                href={`/anime/search?query=${searchTerm}`}
+                href={
+                  searchTerm.trim()
+                    ? `/anime/search?query=${encodeURIComponent(
+                        searchTerm.trim()
+                      )}`
+                    : "#"
+                }
                 className="absolute right-2 top-1/2 -translate-y-1/2"
+                aria-label="Search button"
+                onClick={(e) => {
+                  if (!searchTerm.trim()) e.preventDefault();
+                  setSearchOpen(false);
+                }}
               >
                 <FaSearch size={14} />
               </Link>
@@ -226,7 +270,30 @@ const Navbar = () => {
 
             {/* SEARCH DROPDOWN */}
             {searchOpen && (
-              <div className="absolute top-12 right-0 w-72 bg-[#111] border border-gray-700 rounded-md shadow-xl max-h-80 overflow-y-auto z-50 animate-fadeIn">
+              <div
+                className="
+                absolute
+                top-12
+                right-0
+                bg-[#111]
+                border
+                border-gray-700
+                rounded-md
+                shadow-xl
+                max-h-80
+                overflow-y-auto
+                z-50
+                animate-fadeIn
+                w-56
+                sm:w-72
+                md:w-80
+                lg:w-96
+                sm:right-0
+                left-1/2
+                -translate-x-1/2
+                px-2
+              "
+              >
                 {!searchRes?.data && (
                   <p className="p-3 text-gray-400 text-sm">Searching...</p>
                 )}
@@ -234,13 +301,16 @@ const Navbar = () => {
                   <div
                     key={anime.mal_id}
                     className="flex items-center gap-3 p-2 hover:bg-gray-800 cursor-pointer"
-                    onClick={() => {
-                      setSearchTerm(anime.title);
-                      setSearchOpen(false);
+                    onClick={() => handleSelectResult(anime.title)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSelectResult(anime.title);
                     }}
                   >
                     <img
                       src={anime.images.jpg.image_url}
+                      alt={anime.title}
                       className="w-10 h-14 rounded object-cover"
                     />
                     <p className="text-white text-sm">{anime.title}</p>
@@ -255,6 +325,7 @@ const Navbar = () => {
                 <img
                   src={user.photoURL || "/default-avatar.png"}
                   className="w-[30px] h-[30px] rounded-full"
+                  alt="User avatar"
                 />
                 <span className="text-sm text-gray-300">
                   {user.displayName || "User"}
@@ -281,9 +352,16 @@ const Navbar = () => {
             <FaSearch
               size={18}
               className="text-gray-300 cursor-pointer"
-              onClick={() => setMobileSearch(!mobileSearch)}
+              onClick={() => {
+                setMobileSearch((prev) => !prev);
+                setSearchOpen(false);
+              }}
+              aria-label="Open mobile search"
             />
-            <button onClick={() => setMobileMenu(!mobileMenu)}>
+            <button
+              onClick={() => setMobileMenu((prev) => !prev)}
+              aria-label="Toggle mobile menu"
+            >
               {mobileMenu ? <FaTimes size={22} /> : <FaBars size={22} />}
             </button>
           </div>
@@ -291,14 +369,85 @@ const Navbar = () => {
 
         {/* MOBILE SEARCH */}
         {mobileSearch && (
-          <div className="px-4 mt-3 lg:hidden">
+          <div className="relative flex items-center text-gray-400 w-full max-w-xs mx-auto mt-2 px-4">
             <input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search anime..."
-              className="w-full py-2 px-3 rounded-md bg-gray-900 border border-gray-700 text-sm"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setSearchOpen(e.target.value.length > 1);
+              }}
+              onKeyDown={handleKeyDown}
+              className="pr-9 pl-2 py-1.5 rounded-md bg-gray-900/70 border border-gray-700 text-white text-sm w-full"
+              aria-label="Mobile search anime"
+              autoComplete="off"
+              autoFocus
             />
+            <Link
+              href={
+                searchTerm.trim()
+                  ? `/anime/search?query=${encodeURIComponent(
+                      searchTerm.trim()
+                    )}`
+                  : "#"
+              }
+              className="absolute right-6 top-1/2 -translate-y-1/2"
+              aria-label="Mobile search button"
+              onClick={(e) => {
+                if (!searchTerm.trim()) e.preventDefault();
+                setSearchOpen(false);
+                setMobileSearch(false);
+              }}
+            >
+              <FaSearch size={14} />
+            </Link>
+
+            {/* Mobile search dropdown */}
+            {searchOpen && (
+              <div
+                className="
+                absolute
+                top-full
+                left-1/2
+                -translate-x-1/2
+                mt-1
+                bg-[#111]
+                border
+                border-gray-700
+                rounded-md
+                shadow-xl
+                max-h-80
+                overflow-y-auto
+                z-50
+                animate-fadeIn
+                w-full
+              "
+              >
+                {!searchRes?.data && (
+                  <p className="p-3 text-gray-400 text-sm">Searching...</p>
+                )}
+                {searchRes?.data?.map((anime: any) => (
+                  <div
+                    key={anime.mal_id}
+                    className="flex items-center gap-3 p-2 hover:bg-gray-800 cursor-pointer"
+                    onClick={() => handleSelectResult(anime.title)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSelectResult(anime.title);
+                    }}
+                  >
+                    <img
+                      src={anime.images.jpg.image_url}
+                      alt={anime.title}
+                      className="w-10 h-14 rounded object-cover"
+                    />
+                    <p className="text-white text-sm">{anime.title}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -310,12 +459,13 @@ const Navbar = () => {
               className={`block py-2 ${
                 isActive("/anime") ? "text-purple-400" : "text-gray-300"
               }`}
+              onClick={() => setMobileMenu(false)}
             >
               Home
             </Link>
 
             {/* MOBILE DROPDOWN */}
-            <details className="group">
+            <details className="group" open>
               <summary
                 className={`py-2 cursor-pointer ${
                   isActive("/anime") ? "text-purple-400" : "text-gray-300"
@@ -339,6 +489,7 @@ const Navbar = () => {
                     className={`block py-1 ${
                       isActive(href) ? "text-purple-400" : "text-gray-400"
                     }`}
+                    onClick={() => setMobileMenu(false)}
                   >
                     {label}
                   </Link>
@@ -347,7 +498,6 @@ const Navbar = () => {
             </details>
 
             {/* MOBILE BOOKMARK */}
-
             <Link
               href="/anime/bookmark"
               className={`block py-2 ${
@@ -355,6 +505,7 @@ const Navbar = () => {
                   ? "text-purple-400"
                   : "text-gray-300"
               }`}
+              onClick={() => setMobileMenu(false)}
             >
               Bookmark
             </Link>
@@ -362,7 +513,10 @@ const Navbar = () => {
             {/* MOBILE AUTH */}
             {isLoggedIn ? (
               <button
-                onClick={() => setShowLogoutModal(true)}
+                onClick={() => {
+                  setShowLogoutModal(true);
+                  setMobileMenu(false);
+                }}
                 className="w-full bg-purple-500 hover:bg-purple-600 py-2 rounded-md mt-2"
               >
                 Logout ({user.displayName || "User"})
@@ -371,6 +525,7 @@ const Navbar = () => {
               <Link
                 href="/login"
                 className="w-full block text-center bg-purple-500 hover:bg-purple-600 py-2 rounded-md mt-2"
+                onClick={() => setMobileMenu(false)}
               >
                 Sign Up
               </Link>

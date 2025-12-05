@@ -60,7 +60,7 @@ const Searchresult = ({ query }: { query: string }) => {
       >
         ← Back to Anime
       </Link>
-      <div className=" font-mono max-w-10xl ml-[105px] mt-24 px-4 text-white">
+      <div className=" font-mono max-w-10xl ml-[50px] mt-24 px-4 text-white">
         <h1 className="text-2xl font-bold mb-4">
           Search Results for: <span className="text-purple-400">{query}</span>
         </h1>
@@ -76,7 +76,6 @@ const Searchresult = ({ query }: { query: string }) => {
           gap-4 
           mt-8 
           mb-12 
-          justify-center
           overflow-x-hidden
           overflow-y-hidden
 
