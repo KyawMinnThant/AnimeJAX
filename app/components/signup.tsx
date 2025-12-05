@@ -45,7 +45,7 @@ const SignupForm = () => {
       toast.success("Account created successfully!");
 
       setTimeout(() => {
-        router.push("/login");
+        router.push("/anime");
       }, 800);
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
