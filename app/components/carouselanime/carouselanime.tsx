@@ -43,7 +43,12 @@ export default function FadeCarousel({
   const isTransitioning = useRef(false);
 
   useEffect(() => {
-    return () => timeoutRef.current && clearTimeout(timeoutRef.current);
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      // no return statement here (implicitly returns void)
+    };
   }, []);
 
   useEffect(() => {
