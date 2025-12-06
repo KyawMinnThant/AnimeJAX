@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { setAuthCookie } from "../action/authActions";
 
 interface SignupData {
   name: string;
@@ -65,6 +70,23 @@ const SignupForm = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      const token = await user.getIdToken();
+      const uid = user.uid;
+
+      // ✅ Set cookie on server
+      await setAuthCookie(token, uid);
+
+      // ✅ Redirect after successful register
+      router.push("/anime");
+    });
+
+    return () => unsub();
+  }, [router]);
 
   return (
     <div className="min-h-screen flex font-mono mt-[100px] items-center justify-center bg-[#0a0a0a]/90 px-4">
