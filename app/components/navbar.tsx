@@ -121,8 +121,7 @@ const Navbar = () => {
     await fetch("/api/auth/logout", { method: "POST" });
   };
 
-  const isLoggedIn = hasAuthCookie && user;
-
+  const isLoggedIn = !!user;
   // Handle Enter key for search
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
