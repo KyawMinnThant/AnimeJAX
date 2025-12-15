@@ -79,7 +79,7 @@ const Anime = () => {
       {/* PAGE CONTENT: LEFT + RIGHT (desktop) */}
       <div className="flex flex-col lg:flex-row w-full px-2 md:px-10 lg:px-14 mt-10 gap-8">
         {/* LEFT CONTENT */}
-        <section className="w-full ml-5 lg:w-[80%] md:w-[80%] ">
+        <section className="w-full ml-0 lg:ml-5 md:ml-5 lg:w-[80%] md:w-[80%] ">
           {/* TOP ANIME TITLE */}
           <Textheader>
             <h2 className="text-2xl font-mono font-bold mt-3 mb-5 text-white border-l-5 px-2 border-purple-500">
@@ -88,7 +88,7 @@ const Anime = () => {
           </Textheader>
 
           {/* Top Anime Grid */}
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {animeList.map((anime: any, index: number) => (
               <Animecard key={index} anime={anime} />
             ))}
@@ -114,14 +114,7 @@ const Anime = () => {
           ) : (
             <div
               className="
-          flex 
-          flex-wrap 
-          gap-4 
-          mt-8 
-          mb-12 
-          
-          overflow-x-hidden
-          overflow-y-hidden
+       grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4
 
         "
             >

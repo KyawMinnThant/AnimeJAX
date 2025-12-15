@@ -61,8 +61,8 @@ const Searchresult = ({ query }: { query: string }) => {
       >
         ← Back to Anime
       </Link>
-      <div className=" font-mono max-w-10xl ml-[50px] mt-24 px-4 text-white">
-        <h1 className="text-2xl font-bold mb-4">
+      <div className=" font-mono max-w-10xl mt-5 px-4 text-white">
+        <h1 className="text-2xl text-center font-bold mb-4">
           Search Results for: <span className="text-purple-400">{query}</span>
         </h1>
 
@@ -72,13 +72,15 @@ const Searchresult = ({ query }: { query: string }) => {
 
         <div
           className="
-          flex 
-          flex-wrap 
-          gap-4 
-          mt-8 
-          mb-12 
-          overflow-x-hidden
-          overflow-y-hidden
+      grid 
+        grid-cols-2
+        sm:grid-cols-3
+        md:grid-cols-3 
+        lg:grid-cols-6
+    mx-auto
+        w-[91%]
+        mt-[50px]
+        gap-4
 
         "
         >

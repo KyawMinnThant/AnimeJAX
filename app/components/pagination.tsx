@@ -22,7 +22,7 @@ const Pagination = () => {
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-10 select-none">
+    <div className="flex items-center mb-10 justify-center gap-2 mt-10 select-none">
       {/* PREVIOUS BUTTON */}
       <button
         onClick={prevPage}

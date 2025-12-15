@@ -72,11 +72,7 @@ const Bookmarkcard: React.FC<AnimecardProps> = ({ anime }) => {
     <div
       className="
         font-mono cursor-pointer group relative
-        w-[30%]
-        sm:w-[48%]
-        md:w-[31%]
-        lg:w-[23%] 
-        xl:w-[18%]
+       
       "
     >
       <div className="relative block w-full h-52 sm:h-64 rounded-lg overflow-hidden shadow-lg">

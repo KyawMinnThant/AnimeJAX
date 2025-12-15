@@ -108,7 +108,7 @@ const Navbar = () => {
     if (href === "/anime") {
       return pathname === "/anime";
     }
-    return pathname === href || pathname.startsWith(href + "/anime");
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
   // Logout handler
@@ -181,7 +181,15 @@ const Navbar = () => {
             >
               <button
                 className={`flex items-center gap-1 text-md ${
-                  isActive("/anime")
+                  isActive("/anime") ||
+                  isActive("/anime/top") ||
+                  isActive("/anime/popular") ||
+                  isActive("/anime/airing") ||
+                  isActive("/anime/movie") ||
+                  isActive("/anime/seasonal") ||
+                  isActive("/anime/upcoming") ||
+                  isActive("/anime/favourited") ||
+                  isActive("/anime/search")
                     ? "text-purple-400"
                     : "text-gray-300 hover:text-purple-400"
                 }`}
@@ -219,9 +227,9 @@ const Navbar = () => {
             </div>
 
             <Link
-              href="/anime/bookmark"
+              href="/bookmark"
               className={`flex items-center gap-1 text-md ${
-                isActive("/anime/bookmark")
+                isActive("/bookmark")
                   ? "text-purple-400"
                   : "text-gray-300 hover:text-purple-400"
               }`}
@@ -500,11 +508,9 @@ const Navbar = () => {
 
             {/* MOBILE BOOKMARK */}
             <Link
-              href="/anime/bookmark"
+              href="/bookmark"
               className={`block py-2 ${
-                isActive("/anime/bookmark")
-                  ? "text-purple-400"
-                  : "text-gray-300"
+                isActive("/bookmark") ? "text-purple-400" : "text-gray-300"
               }`}
               onClick={() => setMobileMenu(false)}
             >

@@ -43,14 +43,16 @@ const Bookmark = async () => {
       {hasBookmarks && bookmarks ? (
         <div
           className="
-          flex 
-          flex-wrap 
-          gap-4 
-          mt-8 
-          mb-12 
-          
-          overflow-x-hidden
-          overflow-y-hidden
+         
+        grid 
+        grid-cols-2
+        sm:grid-cols-3
+        md:grid-cols-3 
+        lg:grid-cols-6
+        mx-auto
+        w-[91%]
+        mt-[50px]
+        gap-4
 
         "
         >

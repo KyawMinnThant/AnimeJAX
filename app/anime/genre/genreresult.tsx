@@ -32,10 +32,10 @@ const Genreresult = ({ genre }: { genre: number }) => {
   console.log();
 
   return (
-    <div className="text-white px-0 sm:px-0 md:px-10 lg:px-20 xl:px-[30px] ml-[70px] font-mono mt-[100px]">
+    <div className="text-white px-0 sm:px-0 md:px-10 lg:px-20  font-mono mt-10">
       {/* Title */}
       {!isLoading && (
-        <h1 className="text-3xl font-semibold font-mono mb-6">
+        <h1 className="text-3xl font-semibold text-center font-mono mb-6">
           Search With Genre:{" "}
           <span className="text-purple-400">{GenreType?.name}</span>
         </h1>
@@ -61,14 +61,16 @@ const Genreresult = ({ genre }: { genre: number }) => {
       {/* Anime Grid */}
       <div
         className="
-          flex 
-          flex-wrap 
-          gap-4 
-          mt-8 
-          mb-12 
          
-          overflow-x-hidden
-          overflow-y-hidden
+        grid 
+        grid-cols-2
+        sm:grid-cols-3
+        md:grid-cols-3 
+        lg:grid-cols-6
+        mx-auto
+        w-[91%]
+        mt-[50px]
+        gap-4
 
         "
       >
